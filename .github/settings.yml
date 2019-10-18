@@ -1,0 +1,43 @@
+repository:
+  description: Please specify the repo name in .github/settings.yml
+  private: true
+  has_issues: false
+  has_wiki: false
+  has_downloads: false
+  default_branch: master
+  allow_squash_merge: true
+  allow_merge_commit: false
+  allow_rebase_merge: true
+
+collaborators:
+  - username: SyDeploy
+    permission: push
+  - username: syghcc
+    permission: admin
+  - username: SyJenkins
+    permission: admin
+
+
+teams:
+  - name: devops
+    permission: admin
+  - name: engineering
+    permission: push
+
+branches:
+  - name: master
+    protection:
+      required_pull_request_reviews:
+        required_approving_review_count: 1
+        dismiss_stale_reviews: true
+        require_code_owner_reviews: true
+        dismissal_restrictions:
+          users: []
+          teams: []
+      required_status_checks:
+        strict: true
+        contexts: []
+      restrictions:
+        users: []
+        teams:
+        - engineering
