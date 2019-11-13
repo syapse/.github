@@ -12,6 +12,8 @@ repository:
 teams:
   - name: engineering
     permission: push  
+    
+collaborators: []    
 
 branches:
   - name: master
