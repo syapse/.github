@@ -10,8 +10,6 @@ repository:
   allow_rebase_merge: true
 
 teams:
-  - name: devops
-    permission: admin
   - name: engineering
     permission: push
 
