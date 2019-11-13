@@ -9,15 +9,6 @@ repository:
   allow_merge_commit: false
   allow_rebase_merge: true
 
-collaborators:
-  - username: SyDeploy
-    permission: push
-  - username: syghcc
-    permission: admin
-  - username: SyJenkins
-    permission: admin
-
-
 teams:
   - name: devops
     permission: admin
