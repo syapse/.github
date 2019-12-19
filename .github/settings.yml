@@ -31,8 +31,4 @@ branches:
         strict: true
         contexts: []
       enforce_admins: false
-      restrictions:
-        users: []
-        teams:
-          - devops
-          - engineering
+      restrictions: null
