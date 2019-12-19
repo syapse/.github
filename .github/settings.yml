@@ -31,3 +31,4 @@ branches:
         strict: true
         contexts: []
       enforce_admins: false
+      restrictions: null
