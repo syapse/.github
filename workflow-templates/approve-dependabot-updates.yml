@@ -20,7 +20,7 @@ permissions:
   contents: write
 
 jobs:
-  dependabot_approve_boto3:
+  dependabot_approve:
     runs-on: ubuntu-latest
     if: ${{ github.actor == 'dependabot[bot]' }}
     steps:
