@@ -1,10 +1,10 @@
 ##
 # Automatically approve and automerge Dependabot pull requests when conditions are met.
 #
-# This template will approve and set pull requests to automerge for all dependencies except python when the version bump is major or minor.
+# This template will approve and set pull requests to automerge for all dependencies except Docker when the version bump is major or minor.
 #
-# - Dependabot only updates the Dockerfile when updating a Python dependency, so those pull requests require a little manual refinement.
-# - Because this is an automerge, it will only merge pull requests where all the required checks pass.
+# - Dependabot only updates the Dockerfile when updating a Docker dependency, so those pull requests require a little manual refinement.
+# - Because this is an automerge, it will only merge pull requests where all the required checks pass, so major version bumps in other ecosystems are generally safe.
 #
 # Adapted from https://docs.github.com/en/code-security/supply-chain-security/keeping-your-dependencies-updated-automatically/automating-dependabot-with-github-actions#approve-a-pull-request
 #
@@ -12,8 +12,7 @@
 # before using this in a public repository where an untrusted user can fork it.
 #
 name: Automatically Merge Dependabot Updates
-on:
-  pull_request_target
+on: pull_request_target
 
 permissions:
   pull-requests: write
@@ -26,7 +25,9 @@ jobs:
     steps:
     - name: Dependabot metadata
       id: metadata
-      uses: dependabot/fetch-metadata@v1.1.1
+      # We need the ability to reference the package ecosystem.
+      # This had not yet been released at the time this workflow was written.
+      uses: dependabot/fetch-metadata@1.2.0
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
     - name: Info
@@ -40,21 +41,30 @@ jobs:
         echo 'steps.metadata.outputs.update-type:'
         echo '"${{ steps.metadata.outputs.update-type }}"'
         echo
+        echo 'steps.metadata.outputs.package-ecosystem:'
+        echo '"${{ steps.metadata.outputs.package-ecosystem }}"'
+        echo
+        echo 'steps.metadata.outputs.directory:'
+        echo '"${{ steps.metadata.outputs.directory }}"'
+        echo
+        echo 'steps.metadata.outputs.target-branch:'
+        echo '"${{ steps.metadata.outputs.target-branch }}"'
+        echo
         echo 'steps.metadata.outputs.updated-dependencies-json:'
         echo '"${{ steps.metadata.outputs.updated-dependencies-json }}"'
         echo
         echo 'toJSON(github.event.pull_request.labels):'
         echo '"${{ toJSON(github.event.pull_request.labels) }}"'
     - name: Approve
-      # Approve unless the dependency name is python and the update-type is not semver-patch.
-      if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' || ! contains(steps.metadata.outputs.dependency-names, 'python') }}
+      # Approve unless it's a major/minor dockerfile update. (i.e. Python 3.10-3.11)
+      if: ${{ steps.metadata.outputs.package-ecosystem != 'docker' || steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
       run: gh pr review --approve "$PR_URL"
       env:
         PR_URL: ${{github.event.pull_request.html_url}}
         GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Automerge
-      if: ${{ steps.metadata.outputs.update-type == 'version-update:semver-patch' || ! contains(steps.metadata.outputs.dependency-names, 'python') }}
-      # Automerge unless the dependency name is python and the update-type is not semver-patch.
+      if: ${{ steps.metadata.outputs.package-ecosystem != 'docker' || steps.metadata.outputs.update-type == 'version-update:semver-patch' }}
+      # Approve unless it's a major/minor dockerfile update. (i.e. Python 3.10-3.11)
       run: gh pr merge --auto --squash "$PR_URL"
       env:
         PR_URL: ${{github.event.pull_request.html_url}}
