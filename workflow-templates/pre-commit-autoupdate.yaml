@@ -16,6 +16,6 @@ jobs:
     - uses: peter-evans/create-pull-request@v3.12.1
       with:
         add-paths: .pre-commit-config.yaml
-        commit-message: "[pre-commit] automatic update"
-        title: "[pre-commit] automatic update"
-        body: ""
+        commit-message: '[pre-commit] automatic update'
+        title: '[pre-commit] automatic update'
+        body: ''
