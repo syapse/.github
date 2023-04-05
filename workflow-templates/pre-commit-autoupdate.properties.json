@@ -1,4 +1,4 @@
 {
-  "name": "Syapse Pre-commit Autoupdate Workflow",
-  "description": "Create a pull request on a schedule if pre-commit autoupdate has any changes."
+  "description": "Create a pull request on a schedule if pre-commit autoupdate has any changes.",
+  "name": "Syapse Pre-commit Autoupdate Workflow"
 }
