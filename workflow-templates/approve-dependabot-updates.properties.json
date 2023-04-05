@@ -1,4 +1,4 @@
 {
-  "name": "Syapse Dependabot Automerge Workflow",
-  "description": "Automatically approve and automerge Dependabot pull requests when conditions are met."
+  "description": "Automatically approve and automerge Dependabot pull requests when conditions are met.",
+  "name": "Syapse Dependabot Automerge Workflow"
 }

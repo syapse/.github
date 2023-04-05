@@ -1,4 +1,4 @@
 {
-  "name": "Syapse Pre-commit Workflow",
-  "description": "Run pre-commit on pull requests."
+  "description": "Run pre-commit on pull requests.",
+  "name": "Syapse Pre-commit Workflow"
 }
