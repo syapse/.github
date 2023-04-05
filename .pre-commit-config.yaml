@@ -28,23 +28,10 @@ repos:
   - id: mixed-line-ending
   - id: no-commit-to-branch
   - id: pretty-format-json
-  - id: requirements-txt-fixer
+    args:
+    - --autofix
   - id: sort-simple-yaml
   - id: trailing-whitespace
-- repo: https://github.com/psf/black
-  rev: 23.3.0
-  hooks:
-  - id: black
-- repo: https://github.com/pycqa/isort
-  rev: 5.12.0
-  hooks:
-  - id: isort
-- repo: https://github.com/asottile/pyupgrade
-  rev: v3.3.1
-  hooks:
-  - id: pyupgrade
-    args:
-    - --py310-plus
 - repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
   rev: v2.8.0
   hooks:
