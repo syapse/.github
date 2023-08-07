@@ -36,3 +36,6 @@ branches:
         contexts: []
       enforce_admins: false
       restrictions:
+        apps: []
+        users: []
+        teams: []
